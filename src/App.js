@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Categories from './components/Categories';
+import Categories from './components/categories/Categories';
 import { Fragment } from 'react';
 
 function App() {
