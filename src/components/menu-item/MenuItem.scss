@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgb(139, 60, 60);
+  border: 2px solid rgb(255, 255, 255);
   margin: 0 7.5px 15px;
   overflow: hidden;
 
@@ -14,8 +14,8 @@
 
     & .background-image {
       -webkit-backface-visibility: hidden;
-      transform: scale(1.15);
-      transition: transform 3s cubic-bezier(0.16, 1, 0.29, 0.99);
+      transform: scale(1.25);
+      transition: all 0.3s ease-in-out;
     }
 
     & .content {
