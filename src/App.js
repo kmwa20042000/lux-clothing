@@ -19,7 +19,6 @@ class App extends React.Component {
   //to make it a close subscription
   //its a function with in firebase
   unsubscribeFromAuth = null;
-
   componentDidMount() {
     //where it will keep the user logg
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
