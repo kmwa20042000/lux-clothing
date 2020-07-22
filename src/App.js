@@ -8,7 +8,7 @@ import Header from './components/header/Header';
 import SingInAndSignUp from './components/signInAndSignUp/SignInAndSignUp.jsx';
 import { Fragment } from 'react';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
   //to make it a close subscription
@@ -23,6 +23,7 @@ class App extends React.Component {
       //if there is, it will simply get back te user ref
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
+        localStorage.setItem('authUser', JSON.stringify(userAuth.email));
         //listen to the userRef to see if there is any changes
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({
@@ -32,31 +33,44 @@ class App extends React.Component {
             },
           });
         });
+      } else {
+        localStorage.removeItem('authUser');
       }
       setCurrentUser(userAuth);
     });
   }
-
+  /*
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
-
+*/
   render() {
+    const userLocal = JSON.parse(localStorage.getItem('authUser'));
     return (
       <Fragment>
         <Header />
         <Switch>
           <Route exact path='/' component={Categories} />
           <Route exact path='/shop' component={Shop} />
-          <Route exact path='/signin' component={SingInAndSignUp} />
+          <Route
+            exact
+            path='/signin'
+            render={() =>
+              userLocal ? <Redirect to='/' /> : <SingInAndSignUp />
+            }
+          />
         </Switch>
       </Fragment>
     );
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 //null because App.js doesnt any state, here only sets the state
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import { auth } from '../../firebase/firebase.utils';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+import CartIcon from '../cart-icon/CartIcon';
+import CartDropDown from '../cart-dropdown/CartDropDown';
 import './Header.scss';
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
+  const userLocal = JSON.parse(localStorage.getItem('authUser'));
   return (
     <div className='header'>
       <Link className='logo-container' to='/'>
@@ -17,23 +20,26 @@ const Header = ({ currentUser }) => {
         <Link className='option' to='/contact'>
           CONTACT
         </Link>
-        {currentUser ? (
+        {userLocal ? (
           <div className='option' onClick={() => auth.signOut()}>
             Log Out
           </div>
         ) : (
-          <Link className='option' to='/signIn'>
+          <Link className='option' to='/signin'>
             Log in
           </Link>
         )}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropDown />}
     </div>
   );
 };
-
 //pass in state in the function
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+//state.user.currentUser,
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 export default connect(mapStateToProps)(Header);
