@@ -2,8 +2,11 @@ import React from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/userAction';
+
 import Categories from './components/categories/Categories';
 import Shop from './components/shop/Shop';
+import Checkout from './components/pages/checkout/Checkout';
+
 import Header from './components/header/Header';
 import SingInAndSignUp from './components/signInAndSignUp/SignInAndSignUp.jsx';
 import { Fragment } from 'react';
@@ -51,7 +54,8 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path='/' component={Categories} />
-          <Route exact path='/shop' component={Shop} />
+          <Route path='/shop' component={Shop} />
+          <Route exact path='/checkout' component={Checkout} />
           <Route
             exact
             path='/signin'
