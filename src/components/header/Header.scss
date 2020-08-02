@@ -9,6 +9,11 @@
     height: 100%;
     width: 70px;
     padding: 25px;
+
+    @media screen and (max-width: 800px) {
+      width: 50px;
+      padding: 0px;
+    }
   }
 
   .options {
@@ -19,8 +24,11 @@
     justify-content: flex-end;
 
     .option {
-      padding: 10px 15px;
+      padding: 10px 5px;
       cursor: pointer;
+      @media screen and (max-width: 800px) {
+        width: unset;
+      }
     }
   }
 }

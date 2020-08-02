@@ -56,7 +56,7 @@ export default class Login extends Component {
           <div className='buttons'>
             <Button type='submit'>Sign In</Button>
             <Button type='button' onClick={signInWithGoogle} isGoogleSignIn>
-              Sign In With Google
+              GOOGLE SIGN-IN
             </Button>
           </div>
         </form>
