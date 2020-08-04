@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import FormInput from '../form-input/FormInput';
+import { connect } from 'react-redux';
+import { setAlert } from '../../redux/alerts/alertAction';
 import './Login.scss';
 import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 import Button from '../button/Button';
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -20,7 +22,7 @@ export default class Login extends Component {
       await auth.signInWithEmailAndPassword(email, password);
       this.setState({ email: '', password: '' });
     } catch (error) {
-      console.error(error.message);
+      this.props.setAlert(error.message, 'error');
     }
   };
 
@@ -41,7 +43,7 @@ export default class Login extends Component {
             label='Email'
             onChange={this.onChange}
             value={this.state.email}
-            autocomplete='no'
+            autoComplete='no'
             required
           />
           <FormInput
@@ -50,7 +52,7 @@ export default class Login extends Component {
             label='Password'
             value={this.state.password}
             onChange={this.onChange}
-            autocomplete='new-password'
+            autoComplete='new-password'
             required
           />
           <div className='buttons'>
@@ -64,3 +66,4 @@ export default class Login extends Component {
     );
   }
 }
+export default connect(null, { setAlert })(Login);

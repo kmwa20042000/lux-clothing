@@ -6,9 +6,10 @@ import { setCurrentUser } from './redux/user/userAction';
 import Categories from './components/categories/Categories';
 import Shop from './components/shop/Shop';
 import Checkout from './components/pages/checkout/Checkout';
-
+import Alerts from './components/layouts/Alert';
 import Header from './components/header/Header';
 import SingInAndSignUp from './components/signInAndSignUp/SignInAndSignUp.jsx';
+
 import { Fragment } from 'react';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -52,6 +53,7 @@ class App extends React.Component {
     return (
       <Fragment>
         <Header />
+        <Alerts />
         <Switch>
           <Route exact path='/' component={Categories} />
           <Route path='/shop' component={Shop} />

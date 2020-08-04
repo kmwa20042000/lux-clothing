@@ -6,7 +6,7 @@ export const selectCollections = createSelector(
   selectShop,
   (shop) => shop.collections
 );
-
+//used in collectionPreview component
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
   (collections) => Object.keys(collections).map((key) => collections[key])

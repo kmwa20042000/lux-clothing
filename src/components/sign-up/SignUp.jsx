@@ -1,6 +1,8 @@
 import React from 'react';
 import FormInput from '../form-input/FormInput';
 import Button from '../button/Button';
+import { connect } from 'react-redux';
+import { setAlert } from '../../redux/alerts/alertAction';
 import { auth } from '../../firebase/firebase.utils';
 import { createUserProfileDocument } from '../../firebase/firebase.utils';
 import './SignUp.scss';
@@ -15,29 +17,30 @@ class SignUp extends React.Component {
       confirmPassword: '',
     };
   }
+
   handleSubmit = async (e) => {
     e.preventDefault();
 
     const { displayName, email, password, confirmPassword } = this.state;
     if (password !== confirmPassword) {
-      alert('passwords dont match');
-      return;
-    }
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserProfileDocument(user, { displayName });
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
-      console.log(this.state);
-    } catch (error) {
-      console.error(error.message);
+      this.props.setAlert('password need to match', 'error');
+    } else {
+      try {
+        const { user } = await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+        await createUserProfileDocument(user, { displayName });
+        this.setState({
+          displayName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+        console.log(this.state);
+      } catch (error) {
+        console.error(error.message);
+      }
     }
   };
   handleChange = (e) => {
@@ -90,4 +93,7 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default connect(null, { setAlert })(SignUp);
+/*
+ 
+    */

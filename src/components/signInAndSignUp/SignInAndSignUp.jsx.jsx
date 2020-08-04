@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import Login from '../login/Login';
 import SignUp from '../sign-up/SignUp';
 import './SignInAndSignUp.scss';

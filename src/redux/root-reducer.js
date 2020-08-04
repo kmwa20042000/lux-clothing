@@ -9,19 +9,21 @@ import userReducer from './user/userReducer';
 import cartReducer from './cart/cartReducer';
 import shopReducer from './shop/shopReducer';
 import directoryReducer from './directory/directoryReducer';
+import alertReducer from './alerts/alertReducer';
 
 //configuring persist storage
 const persistConfig = {
   key: 'root',
   storage,
   //select a reducer state
-  whitelist: ['cart'],
+  whitelist: ['cart', 'alert'],
 };
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
   directory: directoryReducer,
   shop: shopReducer,
+  alert: alertReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

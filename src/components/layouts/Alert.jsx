@@ -1,0 +1,23 @@
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { removeAlert } from '../../redux/alerts/alertAction';
+import { Alert, AlertTitle } from '@material-ui/lab';
+
+const Alerts = ({ alerts, removeAlert }) => {
+  return (
+    alerts.length > 0 &&
+    alerts.map((alert) => (
+      <Fragment>
+        <Alert key={alert.id} severity={alert.type}>
+          <span>{alert.msg}</span>
+        </Alert>
+      </Fragment>
+    ))
+  );
+};
+
+const mapStateToProps = (state) => ({
+  alerts: state.alert,
+});
+
+export default connect(mapStateToProps, { removeAlert })(Alerts);
