@@ -39,7 +39,7 @@ class SignUp extends React.Component {
         });
         console.log(this.state);
       } catch (error) {
-        console.error(error.message);
+        this.props.setAlert(error.message, 'error');
       }
     }
   };

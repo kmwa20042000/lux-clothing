@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { removeAlert } from '../../redux/alerts/alertAction';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 
 const Alerts = ({ alerts, removeAlert }) => {
   return (
     alerts.length > 0 &&
     alerts.map((alert) => (
-      <Fragment>
-        <Alert key={alert.id} severity={alert.type}>
+      <Fragment key={alert.id}>
+        <Alert onClose={() => removeAlert(alert.id)} severity={alert.type}>
           <span>{alert.msg}</span>
         </Alert>
       </Fragment>
